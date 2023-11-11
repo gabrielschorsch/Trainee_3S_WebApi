@@ -1,0 +1,70 @@
+CREATE DATABASE ACCESS_3S;
+GO
+
+USE ACCESS_3S;
+GO
+
+CREATE TABLE TiposUsuarios
+(
+	IdTipoUsuario		INT PRIMARY KEY IDENTITY,
+	Titulo				VARCHAR(100) NOT NULL
+);
+GO
+
+CREATE TABLE Usuarios
+(
+	IdUsuario			INT PRIMARY KEY IDENTITY,
+	IdTipoUsuario		INT FOREIGN KEY REFERENCES TiposUsuarios (IdTipoUsuario) NOT NULL,
+	Email				VARCHAR(150) NOT NULL,
+	Senha				VARCHAR(150) NOT NULL
+);
+GO
+
+CREATE TABLE Setores
+(
+	IdSetor		        INT PRIMARY KEY IDENTITY,
+	Titulo				VARCHAR(100) NOT NULL
+);
+GO
+
+CREATE TABLE Colaboradores
+(
+	IdColaborador	    INT PRIMARY KEY IDENTITY,
+    IdUsuario			INT FOREIGN KEY REFERENCES Usuarios (IdUsuario) NOT NULL,
+	IdSetor			    INT FOREIGN KEY REFERENCES Setores (IdSetor),
+	Nome				VARCHAR(250) NOT NULL,
+	IsAdmin			    BIT NOT NULL
+);
+GO
+
+CREATE TABLE Pontos
+(
+	IdPonto		        INT PRIMARY KEY IDENTITY,
+    IdColaborador       INT FOREIGN KEY REFERENCES Colaboradores (IdColaborador) NOT NULL,
+	HorarioPonto		VARCHAR(100) NOT NULL
+);
+GO
+
+CREATE TABLE Visitantes
+(
+	IdVisitante		    INT PRIMARY KEY IDENTITY,
+	IdUsuario			INT FOREIGN KEY REFERENCES Usuarios (IdUsuario) NOT NULL,
+	Nome				VARCHAR(250) NOT NULL
+);
+GO
+
+CREATE TABLE Espacos
+(
+	IdEspaco		    INT PRIMARY KEY IDENTITY,
+	Titulo				VARCHAR(100) NOT NULL
+);
+GO
+
+CREATE TABLE AcessoEspaco
+(
+	IdAcessoEspaco		INT PRIMARY KEY IDENTITY,
+	IdUsuario			INT FOREIGN KEY REFERENCES Usuarios (IdUsuario) NOT NULL,
+	Nome				VARCHAR(250) NOT NULL,
+	IsAdmin			    BIT NOT NULL
+);
+GO
