@@ -12,11 +12,11 @@ namespace Trainee_3S_WebApi.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Produces("application/json")]
-    public class EspacoController : ControllerBase
+    public class ColaboradorController : ControllerBase
     {
         private ColaboradorRepository _ColaboradorRepository { get; set; }
 
-        public EspacoController()
+        public ColaboradorController()
         {
             _ColaboradorRepository = new ColaboradorRepository();
         }
