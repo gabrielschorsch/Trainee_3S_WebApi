@@ -14,11 +14,11 @@ namespace Trainee_3S_WebApi.Controllers
     [Produces("application/json")]
     public class EspacoController : ControllerBase
     {
-        private ColaboradorRepository _ColaboradorRepository { get; set; }
+        private EspacoRepository _EspacoRespository { get; set; }
 
         public EspacoController()
         {
-            _ColaboradorRepository = new ColaboradorRepository();
+            _EspacoRespository = new EspacoRepository();
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace Trainee_3S_WebApi.Controllers
             try
             {
                 // Retorna um status code Ok(200) e uma lista de Colaboradores
-                return Ok(_ColaboradorRepository.GetAll());
+                return Ok(_EspacoRespository.GetAll());
             }
             catch (Exception erro)
             {
@@ -45,23 +45,7 @@ namespace Trainee_3S_WebApi.Controllers
         /// </summary>
         /// <param name="up">Colaborador que será cadastrado</param>
         /// <returns>Um status code Created(201)</returns>
-        [HttpPost]
-        //[Authorize(Roles = "1")]  
-        public IActionResult Cadastrar(ColaboradorViewModel up)
-        {
-            try
-            {
-                _ColaboradorRepository.Save(up);
 
-                // Retorna um status code Created(201)
-                return StatusCode(201);
-            }
-            catch (Exception erro)
-            {
-                // Retorna um status code BadRequest(400)
-                return BadRequest(erro);
-            }
-        }
 
         /// <summary>
         /// Deleta um Colaborador existente
@@ -75,7 +59,7 @@ namespace Trainee_3S_WebApi.Controllers
             try
             {
                 // Cadastra um novo Colaborador
-                _ColaboradorRepository.Delete(id);
+                _EspacoRespository.Delete(id);
 
                 // Retorna um status code NoContent(204)
                 return StatusCode(204);

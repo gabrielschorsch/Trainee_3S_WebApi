@@ -12,26 +12,26 @@ namespace Trainee_3S_WebApi.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Produces("application/json")]
-    public class EspacoController : ControllerBase
+    public class SetorController : ControllerBase
     {
-        private ColaboradorRepository _ColaboradorRepository { get; set; }
+        private SetorRepository _SetorRepository { get; set; }
 
-        public EspacoController()
+        public SetorController()
         {
-            _ColaboradorRepository = new ColaboradorRepository();
+            _SetorRepository = new SetorRepository();
         }
 
         /// <summary>
-        /// Lista todos os Colaboradores
+        /// Lista todos os Setores
         /// </summary>
-        /// <returns>Uma lista com todos os Colaboradores</returns>
+        /// <returns>Uma lista com todos os Setores</returns>
         [HttpGet]
         public IActionResult ListarTodos()
         {
             try
             {
-                // Retorna um status code Ok(200) e uma lista de Colaboradores
-                return Ok(_ColaboradorRepository.GetAll());
+                // Retorna um status code Ok(200) e uma lista de Setores
+                return Ok(_SetorRepository.GetAll());
             }
             catch (Exception erro)
             {
@@ -41,17 +41,17 @@ namespace Trainee_3S_WebApi.Controllers
         }
 
         /// <summary>
-        /// Cadastra um novo Colaborador
+        /// Cadastra um novo Setor
         /// </summary>
-        /// <param name="up">Colaborador que será cadastrado</param>
+        /// <param name="up">Setor que será cadastrado</param>
         /// <returns>Um status code Created(201)</returns>
         [HttpPost]
         //[Authorize(Roles = "1")]  
-        public IActionResult Cadastrar(ColaboradorViewModel up)
+        public IActionResult Cadastrar(SetorViewModel up)
         {
             try
             {
-                _ColaboradorRepository.Save(up);
+                _SetorRepository.Save(up);
 
                 // Retorna um status code Created(201)
                 return StatusCode(201);
@@ -64,9 +64,9 @@ namespace Trainee_3S_WebApi.Controllers
         }
 
         /// <summary>
-        /// Deleta um Colaborador existente
+        /// Deleta um Setor existente
         /// </summary>
-        /// <param name="id">Id do Colaborador que será deletado</param>
+        /// <param name="id">Id do Setor que será deletado</param>
         /// <returns>Um status code NoContent(204)</returns>
         [HttpDelete("{id}")]
         [Authorize(Roles = "1")]
@@ -74,8 +74,8 @@ namespace Trainee_3S_WebApi.Controllers
         {
             try
             {
-                // Cadastra um novo Colaborador
-                _ColaboradorRepository.Delete(id);
+                // Cadastra um novo Setor
+                _SetorRepository.Delete(id);
 
                 // Retorna um status code NoContent(204)
                 return StatusCode(204);

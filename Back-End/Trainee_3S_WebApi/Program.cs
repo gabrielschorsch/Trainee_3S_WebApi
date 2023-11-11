@@ -30,7 +30,7 @@ builder.Services.AddAuthentication(options =>
 
         ValidateLifetime = true,
 
-        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("access-3s-chave-autenticacao")),
+        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("access-3s-chave-autenticacao-enxecao-de-linguica-pra-preencher-bytes")),
 
         ClockSkew = TimeSpan.FromDays(30),
 

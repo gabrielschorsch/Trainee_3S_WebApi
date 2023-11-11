@@ -34,10 +34,10 @@ namespace Trainee_3S_WebApi.Controllers
                 {
                 new Claim(JwtRegisteredClaimNames.Jti, usuarioBuscado.IdUsuario.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, usuarioBuscado.Email),
-                new Claim(ClaimTypes.Role, usuarioBuscado.IdTipoUsuarioNavigation.Titulo)
+                new Claim(ClaimTypes.Role, usuarioBuscado.IdTipoUsuario.ToString())
             };
 
-                var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("access-3s-chave-autenticacao"));
+                var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("access-3s-chave-autenticacao-enxecao-de-linguica-pra-preencher-bytes"));
                 var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
                 var token = new JwtSecurityToken(

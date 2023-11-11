@@ -2,7 +2,6 @@
 {
     public class ColaboradorViewModel
     {
-        public int IdColaborador { get; set; }
 
         public int IdUsuario { get; set; }
 
