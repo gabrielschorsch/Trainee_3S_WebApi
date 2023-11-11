@@ -1,21 +1,23 @@
-﻿namespace Trainee_3S_WebApi.Domains
+﻿using System;
+using System.Collections.Generic;
+
+namespace Trainee_3S_WebApi.Domains;
+
+public partial class Usuario
 {
-    public class Usuario
-    {
-        public int Id { get; set; }
-        public string Email { get; set; }
+    public int IdUsuario { get; set; }
 
-        public string Senha { get; set; }
+    public int IdTipoUsuario { get; set; }
 
-        public int TipoUsuarioId { get; set; }
+    public string Email { get; set; } = null!;
 
-        public TipoUsuario Tipo { get; set; }
+    public string Senha { get; set; } = null!;
 
-        public ICollection<AcessoEspaco> AcessoEspacos { get; set; }
+    public virtual ICollection<AcessoEspaco> AcessoEspacos { get; set; } = new List<AcessoEspaco>();
 
-        public Usuario() { }
+    public virtual ICollection<Colaboradore> Colaboradores { get; set; } = new List<Colaboradore>();
 
-       
+    public virtual TiposUsuario IdTipoUsuarioNavigation { get; set; } = null!;
 
-    }
+    public virtual ICollection<Visitante> Visitantes { get; set; } = new List<Visitante>();
 }

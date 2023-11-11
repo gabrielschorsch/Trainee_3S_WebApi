@@ -7,53 +7,62 @@ namespace Trainee_3S_WebApi.Repository
     {
         public List<Usuario> GetUsers()
         {
-            using (DatabaseContext dbContext = new DatabaseContext())
+            using (Access3SContext dbContext = new Access3SContext())
             {
-                return dbContext.usuarios.ToList();
+                return dbContext.Usuarios.ToList();
             }
         }
 
         public Usuario? GetUserById(int id)
         {
-            using (DatabaseContext dbContext = new DatabaseContext())
+            using (Access3SContext dbContext = new Access3SContext())
             {
-                return dbContext.usuarios.Where(c => c.Id == id).FirstOrDefault();
+                return dbContext.Usuarios.Where(c => c.IdUsuario == id).FirstOrDefault();
             }
         }
 
-        public void Save(Usuario user)
+        public int Save(Usuario user)
         {
-            using (DatabaseContext dbContext = new DatabaseContext())
+            using (Access3SContext dbContext = new Access3SContext())
             {
-                 dbContext.usuarios.Add(user);
+                var entity = dbContext.Usuarios.Add(user);
                 dbContext.SaveChanges();
+                return user.IdUsuario;
             }
         }
 
         public void Update(Usuario user, int id)
         {
-            using (DatabaseContext dbContext = new DatabaseContext())
+            using (Access3SContext dbContext = new Access3SContext())
             {
-                var usuarioEncontrado = dbContext.usuarios.Where(c => c.Id == id).FirstOrDefault();
+                var usuarioEncontrado = dbContext.Usuarios.Where(c => c.IdUsuario == id).FirstOrDefault();
                 if(usuarioEncontrado != null)
                 {
-                    usuarioEncontrado.Tipo = user.Tipo;
+                    usuarioEncontrado.IdTipoUsuario = user.IdTipoUsuario;
                     usuarioEncontrado.Email = user.Email;
-                    dbContext.usuarios.Update(usuarioEncontrado);
+                    dbContext.Usuarios.Update(usuarioEncontrado);
                     dbContext.SaveChanges();
                 }
             }
         }
 
         public void Delete(int id) { 
-            using(DatabaseContext dbContext = new DatabaseContext())
+            using(Access3SContext dbContext = new Access3SContext())
             {
-                var usuario = dbContext.usuarios.Where(c => c.Id == id).FirstOrDefault();
+                var usuario = dbContext.Usuarios.Where(c => c.IdUsuario == id).FirstOrDefault();
                 if(usuario != null)
                 {
-                    dbContext.usuarios.Remove(usuario);
+                    dbContext.Usuarios.Remove(usuario);
                     dbContext.SaveChanges();
                 }
+            }
+        }
+
+        public Usuario? GetByEmailAndPassword(string email, string password)
+        {
+            using (Access3SContext dbContext = new Access3SContext())
+            {
+                return dbContext.Usuarios.Where(c => c.Email == email).Where(c => c.Senha == password).FirstOrDefault();
             }
         }
     }

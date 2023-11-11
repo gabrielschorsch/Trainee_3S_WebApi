@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Trainee_3S_WebApi.Domains;
+using Trainee_3S_WebApi.Repository;
 using Trainee_3S_WebApi.ViewModel;
 
 namespace Trainee_3S_WebApi.Controllers
@@ -17,17 +18,26 @@ namespace Trainee_3S_WebApi.Controllers
         {
             try
             {
+                UserRepository usuarioRepository = new UserRepository();
                 //fazer request
-                Usuario usuarioBuscado = new Usuario();
+                Usuario usuarioBuscado = usuarioRepository.GetByEmailAndPassword(data.Email, data.Password);
+
+                if(usuarioBuscado == null)
+                {
+                    return BadRequest(new
+                    {
+                        message="Falha ao encontrar usuario"
+                    });
+                }
 
                 var claims = new[]
                 {
-                new Claim(JwtRegisteredClaimNames.Jti, usuarioBuscado.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.Jti, usuarioBuscado.IdUsuario.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, usuarioBuscado.Email),
-                new Claim(ClaimTypes.Role, usuarioBuscado.Tipo.Titulo)
+                new Claim(ClaimTypes.Role, usuarioBuscado.IdTipoUsuarioNavigation.Titulo)
             };
 
-                var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(""));
+                var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("access-3s-chave-autenticacao"));
                 var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
                 var token = new JwtSecurityToken(

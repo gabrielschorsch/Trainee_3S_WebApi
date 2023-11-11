@@ -1,15 +1,11 @@
-﻿namespace Trainee_3S_WebApi.Domains
+﻿using System;
+using System.Collections.Generic;
+
+namespace Trainee_3S_WebApi.Domains;
+
+public partial class Espaco
 {
-    public class Espaco
-    {
-        public int Id { get; set; }
-        public string Nome { get; set; }
+    public int IdEspaco { get; set; }
 
-        public ICollection<AcessoEspaco> Acessos { get; set; }
-
-        public Espaco()
-        {
-
-        }
-    }
+    public string Titulo { get; set; } = null!;
 }
